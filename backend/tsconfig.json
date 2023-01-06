@@ -1,0 +1,46 @@
+{
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true,
+    "compilerOptions": {}
+  },
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "outDir": "./build",
+    "removeComments": true,
+    "importHelpers": false,
+    "declaration": true,
+    "declarationMap": false,
+    "strict": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": false,
+    "forceConsistentCasingInFileNames": true,
+    "extendedDiagnostics": true,
+    "incremental": true,
+    "allowJs": false,
+    "composite": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/@types"
+    ],
+    "rootDirs": [
+      "src"
+    ]
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": []
+}
