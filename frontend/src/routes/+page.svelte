@@ -3,33 +3,49 @@
   import { trpc } from '$lib/trpc/client';
   import type { Users } from '$lib/trpc/client';
   
-    let users: Users = [];
+    let usersP: Promise<Users>;
     let error: string = "";
+    let btnCount = 0;
+
+    const refreshData = ():void =>{
+      /*
+      usersP = new Promise((resolve, reject ) =>{
+            setTimeout(async() =>{
+              resolve(await trpc.getUsers.query())
+            }, Math.random()*800);
+          });
+      */          
+      usersP = trpc.getUsers.query();
+      //users = await usersP;
+    }
 
     onMount(async () => {
-        try
-        {
-          users = await trpc.getUsers.query();
-          error = '';
-        }
-        catch(e){
-           error = e instanceof Error ? e.message : '';
-        }
+        refreshData();
     });
 </script>
 
-<h1>Welcome to SvelteKIT</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<center>
+  <h1>Welcome to SvelteKIT</h1>
+</center>
 
-{#if users}
-<ul>
-	{#each users as { id, name }, i}
-		<li class=red>
-				{id}: {name}
-		</li>
-	{/each}
-</ul>
-{/if}
+<button on:click={() => {btnCount++; refreshData();}}>Reload {btnCount ? btnCount : ''}</button>
+
+{#await usersP}
+	<p>Loading data...</p>
+{:then users}
+  {#if users}
+  <ul>
+      {#each users as { id, name }}
+        <li class=red>
+          {id}: {name}
+        </li>
+      {/each}
+    </ul>
+  {/if}
+{:catch error}
+	<p>Something went wrong: {error.message}</p>
+{/await}
+
 
 {#if error}
   {error}
