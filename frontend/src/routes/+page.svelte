@@ -1,22 +1,15 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+
   import { trpc } from '$lib/trpc/client';
   import type { Users } from '$lib/trpc/client';
-  
+	
     let usersP: Promise<Users>;
     let error: string = "";
     let btnCount = 0;
 
     const refreshData = ():void =>{
-      /*
-      usersP = new Promise((resolve, reject ) =>{
-            setTimeout(async() =>{
-              resolve(await trpc.getUsers.query())
-            }, Math.random()*800);
-          });
-      */          
       usersP = trpc.getUsers.query();
-      //users = await usersP;
     }
 
     onMount(async () => {
@@ -25,7 +18,7 @@
 </script>
 
 <center>
-  <h1>Welcome to SvelteKIT</h1>
+  <h1>Welcome to SvelteKITT</h1>
 </center>
 
 <button on:click={() => {btnCount++; refreshData();}}>Reload {btnCount ? btnCount : ''}</button>
@@ -33,6 +26,7 @@
 {#await usersP}
 	<p>Loading data...</p>
 {:then users}
+  {console.log(users)}
   {#if users}
   <ul>
       {#each users as { id, name }}

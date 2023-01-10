@@ -5,7 +5,7 @@ export type { User, Users } from '../../../../backend/src/router';
 export const trpc = createTRPCProxyClient<AppRouter>({
     links: [
         httpBatchLink({
-            url: 'http://192.168.10.94:3000/trpc',
+            url: 'http://127.0.0.1:3000/trpc',
             headers: {
                 "Access-Control-Allow-Origin": "*",
             },
